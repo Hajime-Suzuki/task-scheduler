@@ -1,0 +1,57 @@
+StartScheduledTasks:
+  handler: src/handlers/start-scheduled-tasks/index.handler
+  name: ${self:service}-start-scheduled-tasks
+  timeout: 600 # 10 min
+  memorySize: 2048
+  events:
+    - eventBridge:
+        schedule: cron(0 0-5 * * ? *) # every hour between 0:00 - 5:00
+
+HandleStartedTasks:
+  handler: src/handlers/handle-started-tasks/index.handler
+  name: ${self:service}-handle-started-tasks
+  timeout: 30
+  events:
+    - stream:
+        arn: ${self:custom.config.stream_arn}
+        maximumRetryAttempts: 5
+        filterPatterns:
+          #* https://docs.aws.amazon.com/lambda/latest/dg/invocation-eventfiltering.html
+          #* https://dev.to/aws-builders/new-dynamodb-streams-filtering-in-serverless-framework-3lc5
+          - eventName: [INSERT, MODIFY]
+            dynamodb:
+              NewImage:
+                status:
+                  S: [STARTED]
+
+ScheduleNewTask:
+  handler: src/handlers/schedule-new-task/index.handler
+  name: ${self:service}-schedule-new-task
+  events:
+    - httpApi:
+        method: POST
+        path: /tasks
+
+FindTask:
+  handler: src/handlers/find-task/index.handler
+  name: ${self:service}-find-task
+  events:
+    - httpApi:
+        method: GET
+        path: /tasks/{userId}/{requestId}
+
+FindTasksByUserIds:
+  handler: src/handlers/find-tasks-by-user-id/index.handler
+  name: ${self:service}-find-tasks-by-user-id
+  events:
+    - httpApi:
+        method: GET
+        path: /tasks/{userId}
+
+RemoveTask:
+  handler: src/handlers/remove-task/index.handler
+  name: ${self:service}-revoke-scheduled-task
+  events:
+    - httpApi:
+        method: DELETE
+        path: /tasks/{userId}/{requestId}

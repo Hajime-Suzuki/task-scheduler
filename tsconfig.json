@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@domain": [
+        "domain"
+      ],
+      "@domain/*": [
+        "domain/*"
+      ],
+      "@repo": [
+        "repositories"
+      ],
+      "@repo/*": [
+        "repositories/*"
+      ],
+      "@utils": [
+        "utils"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@handlers/*": [
+        "handlers/*"
+      ],
+    },
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "ES2019",
+    "outDir": "build",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "src/",
+    "config.json",
+    "scripts/",
+  ],
+  "exclude": [
+    "node_modules/"
+  ]
+}

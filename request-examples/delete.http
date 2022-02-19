@@ -1,0 +1,2 @@
+# Change localhost:3000 to API Gateway url once you deploy the application
+DELETE http://localhost:3000/tasks/user1234/request1234

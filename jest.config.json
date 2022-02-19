@@ -1,0 +1,24 @@
+{
+  "transform": {
+    "^.+\\.tsx?$": "esbuild-jest"
+  },
+  "testEnvironment": "node",
+  "resetMocks": true,
+  "testMatch": [
+    "**/__tests__/**/*.test.ts"
+  ],
+  "globals": {
+    "diagnostics": {
+      "warnOnly": true
+    }
+  },
+  "moduleNameMapper": {
+    "^@domain$": "<rootDir>/src/domain",
+    "^@domain/(.+)$": "<rootDir>/src/domain/$1",
+    "^@repo$": "<rootDir>/src/repositories",
+    "^@repo/(.+)$": "<rootDir>/src/repositories/$1",
+    "^@utils$": "<rootDir>/src/utils",
+    "^@utils/(.+)$": "<rootDir>/src/utils/$1",
+    "^@handlers/(.+)$": "<rootDir>/src/handlers/$1"
+  }
+}

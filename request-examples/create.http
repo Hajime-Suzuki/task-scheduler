@@ -1,0 +1,11 @@
+# Change localhost:3000 to API Gateway url once you deploy the application
+POST http://localhost:3000/tasks
+Content-Type: application/json
+
+{
+  "userId": "1",
+  "date": "2021-07-30",
+  "data": {
+    "test": true
+  }
+}
